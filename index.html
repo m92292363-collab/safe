@@ -160,7 +160,7 @@
             white-space: nowrap;
         }
 
-        /* ===== SEARCH BAR - FIXED FOR MOBILE ===== */
+        /* ===== SEARCH BAR ===== */
         .search-section {
             margin: 1.5rem 0 1rem;
             width: 100%;
@@ -240,7 +240,7 @@
             color: #666;
         }
 
-        /* ===== TABS SECTION - FIXED FOR MOBILE ===== */
+        /* ===== TABS SECTION - HORIZONTAL SCROLLING ON ALL DEVICES ===== */
         .tabs-section {
             margin: 0rem 0 1.5rem;
             width: 100%;
@@ -275,14 +275,14 @@
             display: inline-flex;
             align-items: center;
             padding: 0.8rem 1.2rem;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 500;
             color: white;
             border-bottom: 3px solid transparent;
             cursor: pointer;
             transition: all 0.2s;
             white-space: nowrap;
-            gap: 0.4rem;
+            gap: 0.5rem;
             position: relative;
             flex-shrink: 0;
         }
@@ -339,33 +339,12 @@
             display: block;
         }
 
+        /* Hide mobile dropdown completely - we don't need it */
         .mobile-tabs-select {
             display: none;
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--tab-border);
-            border-radius: 8px;
-            font-size: 1rem;
-            margin: 0.5rem 0 1rem;
-            background: var(--tab-bg);
-            color: white;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
-            background-repeat: no-repeat;
-            background-position: left 1rem center;
-            background-size: 16px;
-            text-align: right;
-            padding-right: 1rem;
         }
 
-        .mobile-tabs-select option {
-            background: white;
-            color: var(--text-dark);
-            text-align: right;
-        }
-
-        /* ===== IMAGE BOX - FADE EFFECT - OPTIMIZED ===== */
+        /* ===== IMAGE BOX - FADE EFFECT ===== */
         .nusrat-image-box {
             background: #f5f5f5;
             border-radius: 0;
@@ -385,7 +364,7 @@
             position: relative;
             width: 100%;
             height: 0;
-            padding-bottom: 40%;
+            padding-bottom: 40%; /* Default for desktop */
             background: #e0e0e0;
         }
 
@@ -1858,7 +1837,32 @@
 
         /* ===== MOBILE-SPECIFIC FIXES ===== */
         @media (max-width: 600px) {
-            /* Search bar fixes */
+            /* Make image box larger on mobile */
+            .carousel-slides {
+                padding-bottom: 56.25%; /* 16:9 aspect ratio - larger on mobile */
+            }
+            
+            /* Tabs remain horizontal with scrolling */
+            .tabs-header {
+                display: flex; /* Keep horizontal on mobile */
+                padding: 0 0.5rem;
+            }
+            
+            .tab-item {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .tab-item i {
+                font-size: 0.9rem;
+            }
+            
+            /* Hide mobile dropdown completely */
+            .mobile-tabs-select {
+                display: none;
+            }
+            
+            /* Adjust search bar */
             .search-section {
                 margin: 1rem 0 0.8rem;
                 padding: 0 0.8rem;
@@ -1882,25 +1886,7 @@
                 font-size: 0.9rem;
             }
             
-            /* Tabs fixes */
-            .tabs-section {
-                border-radius: 0;
-                margin: 0;
-            }
-            
-            .tabs-header {
-                display: none;
-            }
-            
-            .mobile-tabs-select {
-                display: block;
-            }
-            
-            .tab-content {
-                padding: 1rem 0.5rem 0 0.5rem;
-            }
-            
-            /* Navbar fixes for mobile */
+            /* Navbar adjustments */
             .navbar {
                 flex-direction: column;
                 gap: 0.5rem;
@@ -1923,7 +1909,7 @@
                 height: 45px;
             }
             
-            /* Welcome section fixes */
+            /* Welcome section */
             .welcome-section {
                 padding: 1.5rem 0.5rem;
             }
@@ -1941,7 +1927,7 @@
                 line-height: 1.6;
             }
             
-            /* Mission & Vision fixes */
+            /* Mission & Vision */
             .mission-card-home, .vision-card-home {
                 padding: 2rem 0.5rem;
             }
@@ -1964,7 +1950,7 @@
                 font-size: 1rem;
             }
             
-            /* Admission section fixes */
+            /* Admission section */
             .admission-section {
                 padding: 1.5rem 1rem;
             }
@@ -1989,7 +1975,7 @@
                 font-size: 1.5rem;
             }
             
-            /* News section fixes */
+            /* News section */
             .news-section {
                 padding: 1.5rem;
             }
@@ -2017,7 +2003,7 @@
                 width: 100%;
             }
             
-            /* More section fixes */
+            /* More section */
             .login-section {
                 grid-template-columns: 1fr;
             }
@@ -2029,9 +2015,13 @@
 
         /* Extra small devices */
         @media (max-width: 380px) {
+            .carousel-slides {
+                padding-bottom: 60%; /* Even larger on very small screens */
+            }
+            
             .tab-item {
                 padding: 0.6rem 0.8rem;
-                font-size: 0.8rem;
+                font-size: 0.85rem;
             }
             
             .search-input {
@@ -2093,18 +2083,18 @@
             </div>
         </div>
 
-        <!-- Tabs Section -->
+        <!-- Tabs Section - Horizontal on all devices -->
         <div class="tabs-section">
-            <!-- Mobile dropdown -->
-            <select class="mobile-tabs-select" id="mobileTabSelect">
-                <option value="tab1" selected>🏠 الرئيسية</option>
+            <!-- Mobile dropdown hidden - not used -->
+            <select class="mobile-tabs-select" id="mobileTabSelect" style="display: none;">
+                <option value="tab1">🏠 الرئيسية</option>
                 <option value="tab2">ℹ️ عن المعهد</option>
                 <option value="tab3">📝 القبول</option>
                 <option value="tab4">📰 الأخبار</option>
                 <option value="tab5">🔽 المزيد</option>
             </select>
 
-            <!-- Desktop tabs -->
+            <!-- Horizontal tabs for all devices -->
             <div class="tabs-header">
                 <div class="tab-item" data-tab="tab5">
                     <i class="fas fa-ellipsis-h"></i>
@@ -2636,23 +2626,9 @@
                     searchInput.placeholder = lang === 'en' ? 'Search Tallinding Islamic...' : 'البحث في المعهد الإسلامي تلندينج...';
                 }
                 
-                const mobileSelect = document.getElementById('mobileTabSelect');
-                if (mobileSelect) {
-                    const options = mobileSelect.options;
-                    if (lang === 'en') {
-                        options[0].text = '🏠 Home';
-                        options[1].text = 'ℹ️ About';
-                        options[2].text = '📝 Admission';
-                        options[3].text = '📰 News';
-                        options[4].text = '🔽 More';
-                    } else {
-                        options[0].text = '🏠 الرئيسية';
-                        options[1].text = 'ℹ️ عن المعهد';
-                        options[2].text = '📝 القبول';
-                        options[3].text = '📰 الأخبار';
-                        options[4].text = '🔽 المزيد';
-                    }
-                }
+                // Update tab text for language switching
+                const tabTexts = document.querySelectorAll('.tab-text');
+                // Texts are already handled by the data-en/data-ar attributes above
             }
             
             langButtons.forEach(btn => {
@@ -2679,21 +2655,20 @@
             // Tabs
             const tabItems = document.querySelectorAll('.tab-item');
             const tabPanes = document.querySelectorAll('.tab-pane');
-            const mobileSelect = document.getElementById('mobileTabSelect');
 
             function switchTab(tabId) {
-                tabItems.forEach(item => item.classList.toggle('active', item.dataset.tab === tabId));
-                tabPanes.forEach(pane => pane.classList.toggle('active', pane.id === tabId));
-                if (mobileSelect) mobileSelect.value = tabId;
+                tabItems.forEach(item => {
+                    item.classList.toggle('active', item.dataset.tab === tabId);
+                });
+                
+                tabPanes.forEach(pane => {
+                    pane.classList.toggle('active', pane.id === tabId);
+                });
             }
 
             tabItems.forEach(item => {
                 item.addEventListener('click', () => switchTab(item.dataset.tab));
             });
-
-            if (mobileSelect) {
-                mobileSelect.addEventListener('change', (e) => switchTab(e.target.value));
-            }
 
             // Carousel functionality
             let currentSlideIndex = 0;
