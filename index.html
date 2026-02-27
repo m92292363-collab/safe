@@ -161,6 +161,7 @@
             color: var(--primary-accent);
         }
 
+        /* Desktop title - all on one line */
         .institute-name {
             font-size: 1.6rem;
             font-weight: 800;
@@ -168,6 +169,16 @@
             letter-spacing: 1px;
             white-space: nowrap;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        /* Hide spans on desktop */
+        .institute-name .title-line1,
+        .institute-name .title-line2 {
+            display: inline;
+            font-size: inherit;
+            font-weight: inherit;
+            color: inherit;
+            letter-spacing: inherit;
         }
 
         /* ===== SEARCH BAR WITH RESULTS ===== */
@@ -2000,46 +2011,33 @@
                 flex-wrap: wrap;
             }
             
+            /* Fix for the title - proper HTML structure */
             .institute-name {
-                font-size: 1.5rem;
+                font-size: 0; /* Hide the original continuous text */
                 white-space: normal;
                 text-align: center;
-                line-height: 1.4;
                 max-width: 300px;
                 margin: 0 auto;
-                word-break: keep-all;
-                letter-spacing: 0.5px;
             }
             
-            /* This creates the perfect line break with spacing */
-            .institute-name {
-                display: block;
-            }
-            
-            .institute-name::before {
-                content: "TALLINDING";
+            /* Create proper two-line title with spans */
+            .institute-name .title-line1 {
                 display: block;
                 font-size: 1.5rem;
-                margin-bottom: 0.15rem;
-                letter-spacing: 1px;
                 font-weight: 800;
                 color: var(--islamic-green);
+                letter-spacing: 1px;
+                margin-bottom: 0.2rem;
+                line-height: 1.3;
             }
             
-            .institute-name::after {
-                content: "ISLAMIC INSTITUTE";
+            .institute-name .title-line2 {
                 display: block;
                 font-size: 1.5rem;
-                margin-top: 0.1rem;
-                letter-spacing: 1px;
                 font-weight: 800;
                 color: var(--islamic-green);
-            }
-            
-            /* Hide the original text */
-            .institute-name {
-                font-size: 0;
-                line-height: 0;
+                letter-spacing: 1px;
+                line-height: 1.3;
             }
             
             .school-logo {
@@ -2239,14 +2237,13 @@
                 padding: 0 0.6rem;
             }
             
-            .institute-name::before {
+            .institute-name .title-line1 {
                 font-size: 1.3rem;
-                margin-bottom: 0.1rem;
+                margin-bottom: 0.15rem;
             }
             
-            .institute-name::after {
+            .institute-name .title-line2 {
                 font-size: 1.3rem;
-                margin-top: 0.05rem;
             }
             
             .school-logo {
@@ -2294,14 +2291,13 @@
                 padding: 0 0.5rem;
             }
             
-            .institute-name::before {
+            .institute-name .title-line1 {
                 font-size: 1.2rem;
                 margin-bottom: 0.1rem;
             }
             
-            .institute-name::after {
+            .institute-name .title-line2 {
                 font-size: 1.2rem;
-                margin-top: 0.05rem;
             }
             
             .school-logo {
@@ -2375,7 +2371,8 @@
             </div>
             <div class="nav-right">
                 <div class="institute-name" id="mainTitle">
-                    TALLINDING ISLAMIC INSTITUTE
+                    <span class="title-line1">TALLINDING</span>
+                    <span class="title-line2">ISLAMIC INSTITUTE</span>
                 </div>
                 <div class="school-logo">
                     <i class="fas fa-school"></i>
@@ -2921,12 +2918,9 @@
                     btn.classList.toggle('active', btnLang === lang);
                 });
                 
-                // Update all elements with data-en and data-ar attributes (except main title)
+                // Update all elements with data-en and data-ar attributes
                 document.querySelectorAll('[data-en][data-ar]').forEach(element => {
-                    // Skip the main title element
-                    if (element.id !== 'mainTitle') {
-                        element.textContent = element.getAttribute(lang === 'en' ? 'data-en' : 'data-ar');
-                    }
+                    element.textContent = element.getAttribute(lang === 'en' ? 'data-en' : 'data-ar');
                 });
                 
                 const searchInput = document.getElementById('searchInput');
