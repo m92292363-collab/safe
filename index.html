@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>Tallinding Islamic Institute · Excellence in Islamic Education</title>
+    <title>معهد تلندينج الإسلامي · التميز في التعليم الإسلامي</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -133,6 +133,17 @@
         .lang-switch button.active {
             background: var(--islamic-green);
             color: white;
+        }
+
+        /* Set Arabic as default active */
+        .lang-btn[data-lang="ar"] {
+            background: var(--islamic-green);
+            color: white;
+        }
+
+        .lang-btn[data-lang="en"] {
+            background: transparent;
+            color: var(--text-dark);
         }
 
         .nav-right {
@@ -2516,8 +2527,8 @@
                     <div class="welcome-section" id="welcome-section">
                         <div class="welcome-card">
                             <div class="welcome-content">
-                                <h2 class="welcome-title" data-en="Welcome to Tallinding Islamic Institute" data-ar="مرحباً بكم في معهد تلندينج الإسلامي">
-                                    <span>مرحباً بكم في معهد تلندينج الإسلامي</span>
+                                <h2 class="welcome-title" data-en="Welcome to Tallinding Islamic Institute" data-ar="مرحباً بكم في معهد بتلند كنجا الإسلامي">
+                                    <span>مرحباً بكم في معهد بتلند كنجا الإسلامي</span>
                                 </h2>
                                 <div class="welcome-text">
                                     <p data-en="Tallinding Islamic Institution has been serving the community for years, providing quality Islamic education combined with academic excellence. Our institution is built on the foundation of Islamic values, promoting discipline, respect, and moral integrity among our students." data-ar="يخدم معهد تلندينج الإسلامي المجتمع لسنوات، حيث يوفر تعليمًا إسلاميًا عالي الجودة مقترنًا بالتميز الأكاديمي. تأسست مؤسستنا على أساس القيم الإسلامية، وتعزز الانضباط والاحترام والنزاهة الأخلاقية بين طلابنا.">
@@ -2540,12 +2551,12 @@
                     <div class="mission-section-home" id="mission-section">
                         <div class="mission-card-home">
                             <div class="mission-content">
-                                <h3 class="section-title" data-en="OUR MISSION" data-ar="مَهَمَّتُنَا">OUR MISSION</h3>
+                                <h3 class="section-title" data-en="OUR MISSION" data-ar="مَهَمَّتُنَا">مَهَمَّتُنَا</h3>
                                 <ul class="mission-list-home">
-                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Promoting Islamic morals and values in all aspects of education" data-ar="تعزيز الأخلاق والقيم الإسلامية في جميع جوانب التعليم">Promoting Islamic morals and values in all aspects of education</span></li>
-                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Fostering academic growth and intellectual development" data-ar="تعزيز النمو الأكاديمي والتطور الفكري">Fostering academic growth and intellectual development</span></li>
-                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Nurturing responsible citizenship and community engagement" data-ar="تنمية المواطنة المسؤولة والمشاركة المجتمعية">Nurturing responsible citizenship and community engagement</span></li>
-                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Providing a safe and supportive learning environment" data-ar="توفير بيئة تعليمية آمنة وداعمة">Providing a safe and supportive learning environment</span></li>
+                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Promoting Islamic morals and values in all aspects of education" data-ar="تعزيز الأخلاق والقيم الإسلامية في جميع جوانب التعليم">تعزيز الأخلاق والقيم الإسلامية في جميع جوانب التعليم</span></li>
+                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Fostering academic growth and intellectual development" data-ar="تعزيز النمو الأكاديمي والتطور الفكري">تعزيز النمو الأكاديمي والتطور الفكري</span></li>
+                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Nurturing responsible citizenship and community engagement" data-ar="تنمية المواطنة المسؤولة والمشاركة المجتمعية">تنمية المواطنة المسؤولة والمشاركة المجتمعية</span></li>
+                                    <li><i class="fas fa-check-circle"></i> <span class="mission-text" data-en="Providing a safe and supportive learning environment" data-ar="توفير بيئة تعليمية آمنة وداعمة">توفير بيئة تعليمية آمنة وداعمة</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -2555,16 +2566,16 @@
                     <div class="vision-section-home" id="vision-section">
                         <div class="vision-card-home">
                             <div class="vision-content">
-                                <h3 class="section-title" data-en="OUR VISION" data-ar="رُؤْيَتُنَا">OUR VISION</h3>
+                                <h3 class="section-title" data-en="OUR VISION" data-ar="رُؤْيَتُنَا">رُؤْيَتُنَا</h3>
                                 <div class="vision-text">
                                     <p class="vision-main" data-en="To be a leading Islamic educational institution that produces well-rounded individuals who excel academically, embody Islamic values, and contribute positively to society." data-ar="أن نكون مؤسسة تعليمية إسلامية رائدة تُخرج أفرادًا متكاملين يتفوقون أكاديميًا ويجسدون القيم الإسلامية ويساهمون بشكل إيجابي في المجتمع.">
-                                        To be a leading Islamic educational institution that produces well-rounded individuals who excel academically, embody Islamic values, and contribute positively to society.
+                                        أن نكون مؤسسة تعليمية إسلامية رائدة تُخرج أفرادًا متكاملين يتفوقون أكاديميًا ويجسدون القيم الإسلامية ويساهمون بشكل إيجابي في المجتمع.
                                     </p>
                                     <p class="vision-middle" data-en="We envision a future where our graduates are recognized for their knowledge, character, and commitment to serving their communities with wisdom and compassion." data-ar="نتصور مستقبلًا حيث يتم التعرف على خريجينا لمعرفتهم وشخصيتهم والتزامهم بخدمة مجتمعاتهم بالحكمة والرحمة.">
-                                        We envision a future where our graduates are recognized for their knowledge, character, and commitment to serving their communities with wisdom and compassion.
+                                        نتصور مستقبلًا حيث يتم التعرف على خريجينا لمعرفتهم وشخصيتهم والتزامهم بخدمة مجتمعاتهم بالحكمة والرحمة.
                                     </p>
                                     <p class="vision-last" data-en="Through continuous improvement and dedication to excellence, we strive to maintain our position as a trusted institution for Islamic education in The Gambia." data-ar="من خلال التحسين المستمر والتفاني في التميز، نسعى جاهدين للحفاظ على مكانتنا كمؤسسة موثوقة للتعليم الإسلامي في غامبيا.">
-                                        Through continuous improvement and dedication to excellence, we strive to maintain our position as a trusted institution for Islamic education in The Gambia.
+                                        من خلال التحسين المستمر والتفاني في التميز، نسعى جاهدين للحفاظ على مكانتنا كمؤسسة موثوقة للتعليم الإسلامي في غامبيا.
                                     </p>
                                 </div>
                             </div>
@@ -2578,15 +2589,15 @@
                         <div class="about-content">
                             <h2>
                                 <i class="fas fa-info-circle"></i> 
-                                <span data-en="About Our Institute" data-ar="عن المعهد">About Our Institute</span>
+                                <span data-en="About Our Institute" data-ar="عن المعهد">عن المعهد</span>
                             </h2>
                             <p data-en="Tallinding Islamic Institution has been serving the community for years, providing quality Islamic education combined with academic excellence. Our institution is built on the foundation of Islamic values, promoting discipline, respect, and moral integrity among our students" data-ar="يخدم معهد تلندينج الإسلامي المجتمع لسنوات، حيث يوفر تعليمًا إسلاميًا عالي الجودة مقترنًا بالتميز الأكاديمي. تأسست مؤسستنا على أساس القيم الإسلامية، وتعزز الانضباط والاحترام والنزاهة الأخلاقية بين طلابنا">
-                                Tallinding Islamic Institution has been serving the community for years, providing quality Islamic education combined with academic excellence. Our institution is built on the foundation of Islamic values, promoting discipline, respect, and moral integrity among our students
+                                يخدم معهد تلندينج الإسلامي المجتمع لسنوات، حيث يوفر تعليمًا إسلاميًا عالي الجودة مقترنًا بالتميز الأكاديمي. تأسست مؤسستنا على أساس القيم الإسلامية، وتعزز الانضباط والاحترام والنزاهة الأخلاقية بين طلابنا
                             </p>
                             
                             <div class="about-highlight">
                                 <p data-en="Founded in 1963, we continue to uphold our commitment to excellence in Islamic education" data-ar="تأسسنا عام ١٩٦٣، ونواصل التمسك بالتزامنا بالتميز في التعليم الإسلامي">
-                                    Founded in 1963, we continue to uphold our commitment to excellence in Islamic education
+                                    تأسسنا عام ١٩٦٣، ونواصل التمسك بالتزامنا بالتميز في التعليم الإسلامي
                                 </p>
                             </div>
                         </div>
@@ -2596,31 +2607,31 @@
                         <div class="union-icon">
                             <i class="fas fa-mosque"></i>
                         </div>
-                        <h3 data-en="The Gambia Islamic Union" data-ar="اتحاد غامبيا الإسلامي">THE GAMBIA ISLAMIC UNION</h3>
-                        <h4 data-en="Partner in Excellence" data-ar="شريك في التميز">PARTNER IN EXCELLENCE</h4>
+                        <h3 data-en="The Gambia Islamic Union" data-ar="اتحاد غامبيا الإسلامي">اتحاد غامبيا الإسلامي</h3>
+                        <h4 data-en="Partner in Excellence" data-ar="شريك في التميز">شريك في التميز</h4>
                         
                         <div class="union-flags">
                             <div class="flag-item">
                                 <i class="fas fa-flag"></i>
-                                <span data-en="The Gambia" data-ar="غامبيا">THE GAMBIA</span>
+                                <span data-en="The Gambia" data-ar="غامبيا">غامبيا</span>
                             </div>
                             <div class="flag-item">
                                 <i class="fas fa-handshake"></i>
-                                <span data-en="Unity" data-ar="الاتحاد">UNITY</span>
+                                <span data-en="Unity" data-ar="الاتحاد">الاتحاد</span>
                             </div>
                             <div class="flag-item">
                                 <i class="fas fa-star-and-crescent"></i>
-                                <span data-en="Islam" data-ar="الإسلام">ISLAM</span>
+                                <span data-en="Islam" data-ar="الإسلام">الإسلام</span>
                             </div>
                         </div>
                         
                         <div class="union-description" data-en="In partnership with the Gambia Islamic Union, we are committed to providing authentic Islamic education and fostering unity within the Muslim community." data-ar="بشراكة مع اتحاد غامبيا الإسلامي، نحن ملتزمون بتقديم تعليم إسلامي أصيل وتعزيز الوحدة داخل المجتمع المسلم.">
-                            In partnership with the Gambia Islamic Union, we are committed to providing authentic Islamic education and fostering unity within the Muslim community.
+                            بشراكة مع اتحاد غامبيا الإسلامي، نحن ملتزمون بتقديم تعليم إسلامي أصيل وتعزيز الوحدة داخل المجتمع المسلم.
                         </div>
                         
                         <div class="union-badge">
                             <i class="fas fa-certificate"></i>
-                            <span data-en="Recognized by the Supreme Islamic Council" data-ar="معترف به من قبل المجلس الإسلامي الأعلى">RECOGNIZED BY THE SUPREME ISLAMIC COUNCIL</span>
+                            <span data-en="Recognized by the Supreme Islamic Council" data-ar="معترف به من قبل المجلس الإسلامي الأعلى">معترف به من قبل المجلس الإسلامي الأعلى</span>
                         </div>
                     </div>
                 </div>
@@ -2631,10 +2642,10 @@
                         <div class="admission-header">
                             <h2>
                                 <i class="fas fa-graduation-cap"></i>
-                                <span data-en="Admissions 2026" data-ar="القبول ٢٠٢٦">Admissions 2026</span>
+                                <span data-en="Admissions 2026" data-ar="القبول ٢٠٢٦">القبول ٢٠٢٦</span>
                             </h2>
                             <p data-en="Join our community of learners. Applications are now open for the 2026 academic year" data-ar="انضم إلى مجتمعنا من المتعلمين. الطلبات الآن مفتوحة للعام الأكاديمي ٢٠٢٦">
-                                Join our community of learners. Applications are now open for the 2026 academic year
+                                انضم إلى مجتمعنا من المتعلمين. الطلبات الآن مفتوحة للعام الأكاديمي ٢٠٢٦
                             </p>
                         </div>
 
@@ -2642,7 +2653,7 @@
                             <div class="requirement-icon">
                                 <i class="fas fa-book-open"></i>
                             </div>
-                            <h3 data-en="Programs" data-ar="البرامج">Programs</h3>
+                            <h3 data-en="Programs" data-ar="البرامج">البرامج</h3>
                             <div class="programs-list">
                                 <div class="program-tag"><i class="fas fa-circle"></i> <span data-en="Quranic Studies" data-ar="القرآن الكريم">القرآن الكريم</span></div>
                                 <div class="program-tag"><i class="fas fa-circle"></i> <span data-en="Complex Reading" data-ar="القراءة المعقدة">القراءة المعقدة</span></div>
@@ -2669,28 +2680,28 @@
                             <div class="requirement-icon">
                                 <i class="fas fa-file-alt"></i>
                             </div>
-                            <h3 data-en="Required Documents" data-ar="الوثائق المطلوبة">Required Documents</h3>
+                            <h3 data-en="Required Documents" data-ar="الوثائق المطلوبة">الوثائق المطلوبة</h3>
                             <ul class="documents-list">
-                                <li><i class="fas fa-check-circle"></i> <span data-en="Birth certificate" data-ar="شهادة ميلاد">Birth certificate</span></li>
-                                <li><i class="fas fa-check-circle"></i> <span data-en="Passport photos (4)" data-ar="صور شخصية (٤)">Passport photos (4)</span></li>
-                                <li><i class="fas fa-check-circle"></i> <span data-en="Medical certificate" data-ar="شهادة طبية">Medical certificate</span></li>
-                                <li><i class="fas fa-check-circle"></i> <span data-en="Previous school reports" data-ar="تقارير مدرسية سابقة">Previous school reports</span></li>
-                                <li><i class="fas fa-check-circle"></i> <span data-en="Identification document" data-ar="وثيقة هوية">Identification document</span></li>
+                                <li><i class="fas fa-check-circle"></i> <span data-en="Birth certificate" data-ar="شهادة ميلاد">شهادة ميلاد</span></li>
+                                <li><i class="fas fa-check-circle"></i> <span data-en="Passport photos (4)" data-ar="صور شخصية (٤)">صور شخصية (٤)</span></li>
+                                <li><i class="fas fa-check-circle"></i> <span data-en="Medical certificate" data-ar="شهادة طبية">شهادة طبية</span></li>
+                                <li><i class="fas fa-check-circle"></i> <span data-en="Previous school reports" data-ar="تقارير مدرسية سابقة">تقارير مدرسية سابقة</span></li>
+                                <li><i class="fas fa-check-circle"></i> <span data-en="Identification document" data-ar="وثيقة هوية">وثيقة هوية</span></li>
                             </ul>
                         </div>
 
                         <div class="deadline-box" id="deadline-section">
-                            <h4 data-en="Application Deadline" data-ar="الموعد النهائي للتقديم">Application Deadline</h4>
-                            <div class="date" data-en="August 15, 2026" data-ar="١٥ أغسطس ٢٠٢٦">August 15, 2026</div>
+                            <h4 data-en="Application Deadline" data-ar="الموعد النهائي للتقديم">الموعد النهائي للتقديم</h4>
+                            <div class="date" data-en="August 15, 2026" data-ar="١٥ أغسطس ٢٠٢٦">١٥ أغسطس ٢٠٢٦</div>
                             <p data-en="Late applications may be considered on a case-by-case basis" data-ar="يمكن النظر في الطلبات المتأخرة على أساس كل حالة على حدة">
-                                Late applications may be considered on a case-by-case basis
+                                يمكن النظر في الطلبات المتأخرة على أساس كل حالة على حدة
                             </p>
                         </div>
 
                         <div class="apply-button">
                             <a href="#" class="btn">
                                 <i class="fas fa-paper-plane"></i>
-                                <span data-en="Apply Now" data-ar="قدم الآن">Apply Now</span>
+                                <span data-en="Apply Now" data-ar="قدم الآن">قدم الآن</span>
                             </a>
                         </div>
                     </div>
@@ -2702,7 +2713,7 @@
                         <div class="news-header">
                             <h2>
                                 <i class="fas fa-newspaper"></i>
-                                <span data-en="Latest News" data-ar="آخر الأخبار">Latest News</span>
+                                <span data-en="Latest News" data-ar="آخر الأخبار">آخر الأخبار</span>
                             </h2>
                         </div>
 
@@ -2713,18 +2724,18 @@
                                     <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1200&auto=format" alt="Graduation ceremony">
                                 </div>
                                 <div class="news-content">
-                                    <span class="news-category" data-en="Event" data-ar="حدث">Event</span>
-                                    <h3 class="news-title" data-en="Graduation Ceremony 2026" data-ar="حفل التخرج ٢٠٢٦">Graduation Ceremony 2026</h3>
+                                    <span class="news-category" data-en="Event" data-ar="حدث">حدث</span>
+                                    <h3 class="news-title" data-en="Graduation Ceremony 2026" data-ar="حفل التخرج ٢٠٢٦">حفل التخرج ٢٠٢٦</h3>
                                     <p class="news-excerpt" data-en="Join us in celebrating the achievements of our graduating class. The ceremony will be held in the main hall with families and community leaders." data-ar="انضموا إلينا للاحتفال بإنجازات الدفعة المتخرجة. سيقام الحفل في القاعة الرئيسية بحضور العائلات وقادة المجتمع.">
-                                        Join us in celebrating the achievements of our graduating class. The ceremony will be held in the main hall with families and community leaders.
+                                        انضموا إلينا للاحتفال بإنجازات الدفعة المتخرجة. سيقام الحفل في القاعة الرئيسية بحضور العائلات وقادة المجتمع.
                                     </p>
                                     <div class="news-meta">
                                         <div class="news-author">
                                             <i class="fas fa-user-circle"></i>
-                                            <span data-en="Admin" data-ar="الإدارة">Admin</span>
+                                            <span data-en="Admin" data-ar="الإدارة">الإدارة</span>
                                         </div>
                                         <a href="#" class="read-more">
-                                            <span data-en="Read More" data-ar="اقرأ المزيد">Read More</span>
+                                            <span data-en="Read More" data-ar="اقرأ المزيد">اقرأ المزيد</span>
                                             <i class="fas fa-arrow-left"></i>
                                         </a>
                                     </div>
@@ -2737,18 +2748,18 @@
                                     <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&auto=format" alt="New academic year">
                                 </div>
                                 <div class="news-content">
-                                    <span class="news-category" data-en="Announcement" data-ar="إعلان">Announcement</span>
-                                    <h3 class="news-title" data-en="New Academic Year Begins" data-ar="بداية العام الأكاديمي الجديد">New Academic Year Begins</h3>
+                                    <span class="news-category" data-en="Announcement" data-ar="إعلان">إعلان</span>
+                                    <h3 class="news-title" data-en="New Academic Year Begins" data-ar="بداية العام الأكاديمي الجديد">بداية العام الأكاديمي الجديد</h3>
                                     <p class="news-excerpt" data-en="Registration for the upcoming academic year is now open. Secure your place today." data-ar="التسجيل للعام الأكاديمي القادم مفتوح الآن. احجز مقعدك اليوم.">
-                                        Registration for the upcoming academic year is now open. Secure your place today.
+                                        التسجيل للعام الأكاديمي القادم مفتوح الآن. احجز مقعدك اليوم.
                                     </p>
                                     <div class="news-meta">
                                         <div class="news-author">
                                             <i class="fas fa-user-circle"></i>
-                                            <span data-en="Admissions" data-ar="القبول">Admissions</span>
+                                            <span data-en="Admissions" data-ar="القبول">القبول</span>
                                         </div>
                                         <a href="#" class="read-more">
-                                            <span data-en="Read More" data-ar="اقرأ المزيد">Read More</span>
+                                            <span data-en="Read More" data-ar="اقرأ المزيد">اقرأ المزيد</span>
                                             <i class="fas fa-arrow-left"></i>
                                         </a>
                                     </div>
@@ -2761,18 +2772,18 @@
                                     <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=800&auto=format" alt="Quran competition">
                                 </div>
                                 <div class="news-content">
-                                    <span class="news-category" data-en="Competition" data-ar="مسابقة">Competition</span>
-                                    <h3 class="news-title" data-en="Annual Quran Competition" data-ar="مسابقة القرآن السنوية">Annual Quran Competition</h3>
+                                    <span class="news-category" data-en="Competition" data-ar="مسابقة">مسابقة</span>
+                                    <h3 class="news-title" data-en="Annual Quran Competition" data-ar="مسابقة القرآن السنوية">مسابقة القرآن السنوية</h3>
                                     <p class="news-excerpt" data-en="Students from all levels are invited to participate in the annual Quran memorization and recitation competition." data-ar="الطلاب من جميع المستويات مدعوون للمشاركة في مسابقة حفظ وتلاوة القرآن السنوية.">
-                                        Students from all levels are invited to participate in the annual Quran memorization and recitation competition.
+                                        الطلاب من جميع المستويات مدعوون للمشاركة في مسابقة حفظ وتلاوة القرآن السنوية.
                                     </p>
                                     <div class="news-meta">
                                         <div class="news-author">
                                             <i class="fas fa-user-circle"></i>
-                                            <span data-en="Quran Dept" data-ar="قسم القرآن">Quran Dept</span>
+                                            <span data-en="Quran Dept" data-ar="قسم القرآن">قسم القرآن</span>
                                         </div>
                                         <a href="#" class="read-more">
-                                            <span data-en="Read More" data-ar="اقرأ المزيد">Read More</span>
+                                            <span data-en="Read More" data-ar="اقرأ المزيد">اقرأ المزيد</span>
                                             <i class="fas fa-arrow-left"></i>
                                         </a>
                                     </div>
@@ -2785,18 +2796,18 @@
                                     <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800&auto=format" alt="Open day">
                                 </div>
                                 <div class="news-content">
-                                    <span class="news-category" data-en="Event" data-ar="حدث">Event</span>
-                                    <h3 class="news-title" data-en="Open Day for Prospective Students" data-ar="اليوم المفتوح للطلاب المحتملين">Open Day for Prospective Students</h3>
+                                    <span class="news-category" data-en="Event" data-ar="حدث">حدث</span>
+                                    <h3 class="news-title" data-en="Open Day for Prospective Students" data-ar="اليوم المفتوح للطلاب المحتملين">اليوم المفتوح للطلاب المحتملين</h3>
                                     <p class="news-excerpt" data-en="Visit our campus, meet our teachers, and learn about our programs at our annual Open Day." data-ar="قم بزيارة حرمنا الجامعي، والتق بمعلمينا، وتعرف على برامجنا في يومنا المفتوح السنوي.">
-                                        Visit our campus, meet our teachers, and learn about our programs at our annual Open Day.
+                                        قم بزيارة حرمنا الجامعي، والتق بمعلمينا، وتعرف على برامجنا في يومنا المفتوح السنوي.
                                     </p>
                                     <div class="news-meta">
                                         <div class="news-author">
                                             <i class="fas fa-user-circle"></i>
-                                            <span data-en="PR Team" data-ar="فريق العلاقات">PR Team</span>
+                                            <span data-en="PR Team" data-ar="فريق العلاقات">فريق العلاقات</span>
                                         </div>
                                         <a href="#" class="read-more">
-                                            <span data-en="Read More" data-ar="اقرأ المزيد">Read More</span>
+                                            <span data-en="Read More" data-ar="اقرأ المزيد">اقرأ المزيد</span>
                                             <i class="fas fa-arrow-left"></i>
                                         </a>
                                     </div>
@@ -2806,14 +2817,14 @@
                             <!-- Newsletter Banner -->
                             <div class="newsletter-banner" id="newsletter-section">
                                 <div>
-                                    <h3><i class="fas fa-envelope-open-text"></i> <span data-en="Stay Updated" data-ar="ابق على اطلاع">Stay Updated</span></h3>
+                                    <h3><i class="fas fa-envelope-open-text"></i> <span data-en="Stay Updated" data-ar="ابق على اطلاع">ابق على اطلاع</span></h3>
                                     <p data-en="Subscribe to our newsletter for the latest news and events" data-ar="اشترك في نشرتنا الإخبارية لآخر الأخبار والفعاليات">
-                                        Subscribe to our newsletter for the latest news and events
+                                        اشترك في نشرتنا الإخبارية لآخر الأخبار والفعاليات
                                     </p>
                                 </div>
                                 <div class="newsletter-input">
                                     <input type="email" placeholder="your.email@example.com" data-en="your.email@example.com" data-ar="بريدك@example.com">
-                                    <button data-en="Subscribe" data-ar="اشترك">Subscribe</button>
+                                    <button data-en="Subscribe" data-ar="اشترك">اشترك</button>
                                 </div>
                             </div>
                         </div>
@@ -2826,7 +2837,7 @@
                         <div class="more-header">
                             <h2>
                                 <i class="fas fa-ellipsis-h"></i>
-                                <span data-en="More Resources" data-ar="المزيد من الموارد">More Resources</span>
+                                <span data-en="More Resources" data-ar="المزيد من الموارد">المزيد من الموارد</span>
                             </h2>
                         </div>
 
@@ -2836,18 +2847,18 @@
                                 <div class="login-icon">
                                     <i class="fas fa-user-graduate"></i>
                                 </div>
-                                <h3 data-en="Student Portal" data-ar="بوابة الطالب">Student Portal</h3>
+                                <h3 data-en="Student Portal" data-ar="بوابة الطالب">بوابة الطالب</h3>
                                 <p data-en="Login to access your student account and view your information" data-ar="سجل الدخول للوصول إلى حسابك الطلابي وعرض معلوماتك">
-                                    Login to access your student account and view your information
+                                    سجل الدخول للوصول إلى حسابك الطلابي وعرض معلوماتك
                                 </p>
                                 <div class="login-form">
                                     <input type="text" placeholder="Student ID / رقم الطالب" data-en="Student ID" data-ar="رقم الطالب">
                                     <input type="password" placeholder="Password / كلمة المرور" data-en="Password" data-ar="كلمة المرور">
-                                    <button><i class="fas fa-sign-in-alt"></i> <span data-en="Login" data-ar="تسجيل الدخول">Login</span></button>
+                                    <button><i class="fas fa-sign-in-alt"></i> <span data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</span></button>
                                 </div>
                                 <div class="login-footer">
-                                    <a href="#"><span data-en="Forgot Password?" data-ar="نسيت كلمة المرور؟">Forgot Password?</span></a>
-                                    <a href="#"><span data-en="Help" data-ar="مساعدة">Help</span></a>
+                                    <a href="#"><span data-en="Forgot Password?" data-ar="نسيت كلمة المرور؟">نسيت كلمة المرور؟</span></a>
+                                    <a href="#"><span data-en="Help" data-ar="مساعدة">مساعدة</span></a>
                                 </div>
                             </div>
 
@@ -2856,18 +2867,18 @@
                                 <div class="login-icon">
                                     <i class="fas fa-chalkboard-teacher"></i>
                                 </div>
-                                <h3 data-en="Teacher Portal" data-ar="بوابة المعلم">Teacher Portal</h3>
+                                <h3 data-en="Teacher Portal" data-ar="بوابة المعلم">بوابة المعلم</h3>
                                 <p data-en="Login to access your teacher account and manage your classes" data-ar="سجل الدخول للوصول إلى حسابك المعلم وإدارة فصولك">
-                                    Login to access your teacher account and manage your classes
+                                    سجل الدخول للوصول إلى حسابك المعلم وإدارة فصولك
                                 </p>
                                 <div class="login-form">
                                     <input type="text" placeholder="Teacher ID / رقم المعلم" data-en="Teacher ID" data-ar="رقم المعلم">
                                     <input type="password" placeholder="Password / كلمة المرور" data-en="Password" data-ar="كلمة المرور">
-                                    <button><i class="fas fa-sign-in-alt"></i> <span data-en="Login" data-ar="تسجيل الدخول">Login</span></button>
+                                    <button><i class="fas fa-sign-in-alt"></i> <span data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</span></button>
                                 </div>
                                 <div class="login-footer">
-                                    <a href="#"><span data-en="Forgot Password?" data-ar="نسيت كلمة المرور؟">Forgot Password?</span></a>
-                                    <a href="#"><span data-en="Help" data-ar="مساعدة">Help</span></a>
+                                    <a href="#"><span data-en="Forgot Password?" data-ar="نسيت كلمة المرور؟">نسيت كلمة المرور؟</span></a>
+                                    <a href="#"><span data-en="Help" data-ar="مساعدة">مساعدة</span></a>
                                 </div>
                             </div>
                         </div>
@@ -2920,6 +2931,18 @@
             // Language switching - Main title stays in English
             const langButtons = document.querySelectorAll('.lang-btn');
             const mainTitle = document.getElementById('mainTitle');
+            
+            // Set Arabic as default on page load
+            document.querySelectorAll('[data-en][data-ar]').forEach(element => {
+                // For elements with both data-en and data-ar, show Arabic by default
+                if (element.hasAttribute('data-ar')) {
+                    element.textContent = element.getAttribute('data-ar');
+                }
+            });
+            
+            // Set default active state for Arabic button
+            document.querySelector('.lang-btn[data-lang="ar"]').classList.add('active');
+            document.querySelector('.lang-btn[data-lang="en"]').classList.remove('active');
             
             function switchLanguage(lang) {
                 langButtons.forEach(btn => {
