@@ -131,19 +131,8 @@
         }
 
         .lang-switch button.active {
-            background: var(--islamic-green);
-            color: white;
-        }
-
-        /* Set Arabic as default active */
-        .lang-btn[data-lang="ar"] {
-            background: var(--islamic-green);
-            color: white;
-        }
-
-        .lang-btn[data-lang="en"] {
-            background: transparent;
-            color: var(--text-dark);
+            background: var(--islamic-green) !important;
+            color: white !important;
         }
 
         .nav-right {
@@ -2385,7 +2374,7 @@
         <nav class="navbar">
             <div class="nav-left">
                 <div class="lang-switch">
-                    <button class="lang-btn active" id="lang-ar" data-lang="ar">عربي</button>
+                    <button class="lang-btn" id="lang-ar" data-lang="ar">عربي</button>
                     <button class="lang-btn" id="lang-en" data-lang="en">EN</button>
                 </div>
             </div>
@@ -2933,21 +2922,36 @@
             const mainTitle = document.getElementById('mainTitle');
             
             // Set Arabic as default on page load
-            document.querySelectorAll('[data-en][data-ar]').forEach(element => {
-                // For elements with both data-en and data-ar, show Arabic by default
-                if (element.hasAttribute('data-ar')) {
-                    element.textContent = element.getAttribute('data-ar');
+            function setDefaultLanguage() {
+                // Set Arabic button as active
+                document.querySelector('.lang-btn[data-lang="ar"]').classList.add('active');
+                document.querySelector('.lang-btn[data-lang="en"]').classList.remove('active');
+                
+                // Set all text to Arabic
+                document.querySelectorAll('[data-en][data-ar]').forEach(element => {
+                    if (element.hasAttribute('data-ar')) {
+                        element.textContent = element.getAttribute('data-ar');
+                    }
+                });
+                
+                // Set search placeholder to Arabic
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.placeholder = 'البحث في المعهد الإسلامي تلندينج...';
                 }
-            });
+            }
             
-            // Set default active state for Arabic button
-            document.querySelector('.lang-btn[data-lang="ar"]').classList.add('active');
-            document.querySelector('.lang-btn[data-lang="en"]').classList.remove('active');
+            // Call set default language immediately
+            setDefaultLanguage();
             
             function switchLanguage(lang) {
                 langButtons.forEach(btn => {
                     const btnLang = btn.getAttribute('data-lang');
-                    btn.classList.toggle('active', btnLang === lang);
+                    if (btnLang === lang) {
+                        btn.classList.add('active');
+                    } else {
+                        btn.classList.remove('active');
+                    }
                 });
                 
                 // Update all elements with data-en and data-ar attributes
