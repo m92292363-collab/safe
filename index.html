@@ -371,12 +371,113 @@
                 <p id="dashStudentGrade">المستوى: ---</p>
             </div>
         </div>
-        <div class="results-section">
-            <h3><i class="fas fa-chart-bar"></i> نتائجي الدراسية</h3>
-            <div id="resultsContainer">
-                <div class="loading-spinner">
+
+        <!-- TERM CARDS -->
+        <div id="termCardsSection">
+            <h3 style="color:var(--islamic-green);font-size:1.2rem;font-weight:700;margin-bottom:1rem;text-align:center;">
+                <i class="fas fa-book-open" style="color:var(--primary-accent);margin-left:0.5rem;"></i>
+                اختر الفصل الدراسي لعرض النتائج
+            </h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;max-width:600px;margin:0 auto;" id="termCardsGrid">
+                <div class="loading-spinner" style="grid-column:span 2;">
                     <i class="fas fa-spinner"></i>
-                    <p style="margin-top:1rem;">جاري تحميل النتائج...</p>
+                    <p style="margin-top:1rem;">جاري تحميل البيانات...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- A4 REPORT VIEW (hidden until term selected) -->
+        <div id="reportView" style="display:none;">
+            <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+                <button onclick="backToTerms()" style="background:var(--islamic-green);color:white;border:none;padding:0.6rem 1.5rem;border-radius:30px;cursor:pointer;font-size:0.95rem;display:flex;align-items:center;gap:0.5rem;">
+                    <i class="fas fa-arrow-right"></i> رجوع
+                </button>
+                <button onclick="printReport()" style="background:var(--primary-accent);color:#1e2b2f;border:none;padding:0.6rem 1.5rem;border-radius:30px;cursor:pointer;font-size:0.95rem;font-weight:700;display:flex;align-items:center;gap:0.5rem;">
+                    <i class="fas fa-print"></i> طباعة / تنزيل PDF
+                </button>
+            </div>
+
+            <!-- A4 PAPER -->
+            <div id="a4Report" style="background:white;max-width:800px;margin:0 auto;padding:2rem;border:1px solid #ddd;box-shadow:0 5px 20px rgba(0,0,0,0.1);font-family:'Arial',sans-serif;direction:rtl;">
+
+                <!-- HEADER -->
+                <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin-bottom:1rem;border-bottom:3px double #1e5a3a;padding-bottom:1rem;">
+                    <!-- Right: Arabic header -->
+                    <div style="text-align:right;font-size:0.85rem;line-height:1.8;">
+                        <div style="font-weight:700;">جمهورية غامبيا</div>
+                        <div>الاتحاد الإسلامي الغامبي</div>
+                        <div>المعهد الإسلامي ببتلند كنجا</div>
+                        <div id="reportDate" style="margin-top:0.3rem;"></div>
+                    </div>
+                    <!-- Center: Logo/Stamp area -->
+                    <div style="text-align:center;padding:0 1rem;">
+                        <div style="width:80px;height:80px;border:3px solid #1e5a3a;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;background:#f0f7f4;">
+                            <i class="fas fa-mosque" style="font-size:2rem;color:#1e5a3a;"></i>
+                        </div>
+                    </div>
+                    <!-- Left: English header -->
+                    <div style="text-align:left;font-size:0.85rem;line-height:1.8;direction:ltr;">
+                        <div style="font-weight:700;">Republic of The Gambia</div>
+                        <div>The Gambia Islamic Union</div>
+                        <div>Tallinding Islamic Institute</div>
+                    </div>
+                </div>
+
+                <!-- TITLE -->
+                <div style="text-align:center;margin-bottom:1rem;">
+                    <div style="font-size:1.2rem;font-weight:700;color:#1e5a3a;border:2px solid #1e5a3a;display:inline-block;padding:0.3rem 2rem;border-radius:4px;">
+                        كشف الدرجات للمرحلة الثانوية
+                    </div>
+                </div>
+
+                <!-- ATTESTATION TEXT -->
+                <div id="attestationText" style="background:#f9f9f9;border:1px solid #ddd;padding:0.8rem 1rem;border-radius:4px;margin-bottom:1rem;font-size:0.9rem;line-height:1.8;text-align:right;"></div>
+
+                <!-- STATS ROW -->
+                <div style="display:flex;justify-content:space-between;margin-bottom:1rem;font-size:0.9rem;font-weight:600;">
+                    <span id="reportRank"></span>
+                    <span id="reportGrade"></span>
+                    <span id="reportPassCount"></span>
+                </div>
+
+                <!-- RESULTS TABLE -->
+                <table style="width:100%;border-collapse:collapse;font-size:0.9rem;margin-bottom:1.5rem;">
+                    <thead>
+                        <tr style="background:#1e5a3a;color:white;">
+                            <th style="border:1px solid #999;padding:0.5rem;text-align:center;width:5%;">م</th>
+                            <th style="border:1px solid #999;padding:0.5rem;text-align:center;">المـــادة</th>
+                            <th style="border:1px solid #999;padding:0.5rem;text-align:center;" colspan="2">الدرجة العامة</th>
+                            <th style="border:1px solid #999;padding:0.5rem;text-align:center;" colspan="2">الدرجة المكتسبة</th>
+                            <th style="border:1px solid #999;padding:0.5rem;text-align:center;">ملاحظة</th>
+                        </tr>
+                        <tr style="background:#e8f5ee;font-size:0.8rem;">
+                            <th style="border:1px solid #999;padding:0.3rem;"></th>
+                            <th style="border:1px solid #999;padding:0.3rem;"></th>
+                            <th style="border:1px solid #999;padding:0.3rem;text-align:center;">الكبرى</th>
+                            <th style="border:1px solid #999;padding:0.3rem;text-align:center;">الصغرى</th>
+                            <th style="border:1px solid #999;padding:0.3rem;text-align:center;">رقماً</th>
+                            <th style="border:1px solid #999;padding:0.3rem;text-align:center;">كتابةً</th>
+                            <th style="border:1px solid #999;padding:0.3rem;"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody"></tbody>
+                    <tfoot id="reportTableFoot"></tfoot>
+                </table>
+
+                <!-- SIGNATURES -->
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:2rem;text-align:center;font-size:0.85rem;">
+                    <div style="border-top:2px solid #333;padding-top:0.5rem;">
+                        <div style="font-weight:700;margin-bottom:2rem;">توقيع مدير المعهد</div>
+                        <div style="height:40px;"></div>
+                    </div>
+                    <div style="border-top:2px solid #333;padding-top:0.5rem;">
+                        <div style="font-weight:700;margin-bottom:0.5rem;">ختم المعهد الرسمي</div>
+                        <div style="width:80px;height:80px;border:2px dashed #999;border-radius:50%;margin:0 auto;display:flex;align-items:center;justify-content:center;color:#999;font-size:0.7rem;">الختم</div>
+                    </div>
+                    <div style="border-top:2px solid #333;padding-top:0.5rem;">
+                        <div style="font-weight:700;margin-bottom:2rem;">توقيع مدير الامتحانات</div>
+                        <div style="height:40px;"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -831,7 +932,7 @@
         <div class="footer-content">
             <div class="contact-stack">
                 <div class="contact-item"><i class="fas fa-phone-alt"></i><span>+220 9905171</span></div>
-                <div class="contact-item"><i class="fas fa-envelope"></i><span>tallindingislamicinstitutemaha@gmail.com</span></div>
+                <div class="contact-item"><i class="fas fa-envelope"></i><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c283d303035323835323b352f303d31353f35322f283528292839313d343d1c3b313d3530723f3331">[email&#160;protected]</a></span></div>
             </div>
             <div class="footer-social">
                 <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -849,7 +950,7 @@
     </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function() {
     'use strict';
 
@@ -987,7 +1088,24 @@ async function studentLogin() {
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
 }
 
+let currentStudentData = null;
+let allStudentResults = [];
+
+// Number to Arabic words
+function toArabicWords(n) {
+    const ones = ['','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة','عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+    const tens = ['','','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
+    const hundreds = ['','مائة','مئتان','ثلاثمائة','أربعمائة','خمسمائة','ستمائة','سبعمائة','ثمانمائة','تسعمائة'];
+    if (n === 0) return 'صفر';
+    if (n < 20) return ones[n];
+    if (n < 100) { const t = Math.floor(n/10); const o = n%10; return o ? ones[o] + ' و' + tens[t] : tens[t]; }
+    if (n < 1000) { const h = Math.floor(n/100); const r = n%100; return r ? hundreds[h] + ' و' + toArabicWords(r) : hundreds[h]; }
+    if (n < 10000) { const th = Math.floor(n/1000); const r = n%1000; const thStr = th===1?'ألف':th===2?'ألفان':th<11?ones[th]+' آلاف':ones[th]+' ألف'; return r ? thStr + ' و' + toArabicWords(r) : thStr; }
+    return n.toString();
+}
+
 async function showStudentDashboard(student) {
+    currentStudentData = student;
     document.getElementById('dashStudentName').textContent = student.fullName;
     document.getElementById('dashStudentNameBig').textContent = `مرحباً، ${student.fullName}`;
     document.getElementById('dashStudentId').textContent = `رقم الطالب: ${student.studentId}`;
@@ -995,41 +1113,128 @@ async function showStudentDashboard(student) {
     document.getElementById('studentDashboard').classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // Load results
+    // Load all results
     try {
         const res = await fetch(`/api/get-results?studentId=${student.studentId}`);
         const data = await res.json();
-        const container = document.getElementById('resultsContainer');
-        if (data.success && data.results.length > 0) {
-            container.innerHTML = `
-                <table class="results-table">
-                    <thead>
-                        <tr>
-                            <th>المادة</th>
-                            <th>الدرجة</th>
-                            <th>التقدير</th>
-                            <th>الفصل</th>
-                            <th>العام</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${data.results.map(r => `
-                            <tr>
-                                <td>${r.subject}</td>
-                                <td>${r.score}/100</td>
-                                <td><span class="grade-badge grade-${r.grade}">${r.grade}</span></td>
-                                <td>${r.term}</td>
-                                <td>${r.academic_year}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>`;
-        } else {
-            container.innerHTML = `<div class="no-results-msg"><i class="fas fa-inbox"></i><p>لا توجد نتائج متاحة حتى الآن.</p></div>`;
-        }
+        allStudentResults = data.success ? data.results : [];
+        renderTermCards();
     } catch (err) {
-        document.getElementById('resultsContainer').innerHTML = `<div class="no-results-msg"><i class="fas fa-exclamation-circle"></i><p>خطأ في تحميل النتائج.</p></div>`;
+        allStudentResults = [];
+        renderTermCards();
     }
+}
+
+function renderTermCards() {
+    const grid = document.getElementById('termCardsGrid');
+
+    // Get unique years
+    const years = [...new Set(allStudentResults.map(r => r.academic_year))];
+    const terms = ['Term 1', 'Term 2'];
+    const termNames = { 'Term 1': 'الفصل الأول', 'Term 2': 'الفصل الثاني' };
+    const termIcons = { 'Term 1': 'fa-sun', 'Term 2': 'fa-moon' };
+
+    if (allStudentResults.length === 0) {
+        grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:3rem;color:#888;"><i class="fas fa-inbox" style="font-size:3rem;color:var(--primary-accent);display:block;margin-bottom:1rem;"></i><p>لا توجد نتائج متاحة حتى الآن.</p></div>`;
+        return;
+    }
+
+    const year = years[0]; // use first year
+    grid.innerHTML = terms.map(term => {
+        const count = allStudentResults.filter(r => r.term === term && r.academic_year === year).length;
+        const total = allStudentResults.filter(r => r.term === term && r.academic_year === year).reduce((s, r) => s + r.score, 0);
+        const hasData = count > 0;
+        return `
+        <div onclick="${hasData ? `showTermReport('${term}','${year}')` : ''}"
+             style="background:${hasData ? 'linear-gradient(135deg,#1e5a3a,#2b7a4f)' : '#e0e0e0'};
+                    color:${hasData ? 'white' : '#999'};
+                    border-radius:1.2rem;padding:2rem 1.5rem;text-align:center;
+                    cursor:${hasData ? 'pointer' : 'default'};
+                    transition:all 0.3s;box-shadow:${hasData ? '0 8px 20px rgba(30,90,58,0.3)' : 'none'};
+                    border:${hasData ? '2px solid rgba(255,179,71,0.4)' : '2px dashed #ccc'};"
+             onmouseover="${hasData ? "this.style.transform='translateY(-5px)'" : ''}"
+             onmouseout="${hasData ? "this.style.transform='translateY(0)'" : ''}">
+            <i class="fas ${termIcons[term]}" style="font-size:2.5rem;color:${hasData ? 'var(--primary-accent)' : '#bbb'};margin-bottom:1rem;display:block;"></i>
+            <div style="font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">${termNames[term]}</div>
+            <div style="font-size:0.9rem;opacity:0.85;margin-bottom:0.5rem;">${year}</div>
+            ${hasData
+                ? `<div style="background:rgba(255,255,255,0.15);border-radius:30px;padding:0.3rem 1rem;margin-top:0.8rem;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:var(--primary-accent);margin-left:0.3rem;"></i>${count} مادة · مجموع ${total}</div>`
+                : `<div style="font-size:0.85rem;margin-top:0.8rem;">لا توجد نتائج</div>`}
+            ${hasData ? `<div style="margin-top:1rem;font-size:0.85rem;opacity:0.8;"><i class="fas fa-eye" style="margin-left:0.3rem;"></i>انقر لعرض كشف الدرجات</div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+function showTermReport(term, year) {
+    const results = allStudentResults.filter(r => r.term === term && r.academic_year === year);
+    const termNames = { 'Term 1': 'الفصل الأول', 'Term 2': 'الفصل الثاني' };
+    const student = currentStudentData;
+
+    // Set header info
+    const today = new Date();
+    document.getElementById('reportDate').textContent = `التاريخ: ${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
+
+    // Attestation
+    document.getElementById('attestationText').innerHTML =
+        `تشهد إدارة المعهد الإسلامي ببتلند كنجا بأن الطالب: <strong>${student.fullName}</strong> قد نجح في امتحان الدور الأول
+        للعام الدراسي ${year} وبناء عليه استحق نيل هذه الوثيقة.
+        عدد طلاب الفصل: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+        الفصل: ${termNames[term]}`;
+
+    // Stats
+    const total = results.reduce((s, r) => s + r.score, 0);
+    const maxTotal = results.length * 100;
+    document.getElementById('reportPassCount').textContent = `عدد الناجحين: ---`;
+    document.getElementById('reportRank').textContent = `الترتيب: ---`;
+    document.getElementById('reportGrade').textContent = `التقدير: ${total >= maxTotal*0.9 ? 'ممتاز' : total >= maxTotal*0.75 ? 'جيد جداً' : total >= maxTotal*0.6 ? 'جيد' : 'مقبول'}`;
+
+    // Table body
+    const tbody = document.getElementById('reportTableBody');
+    tbody.innerHTML = results.map((r, i) => `
+        <tr style="${i%2===0 ? 'background:#fafafa;' : 'background:white;'}">
+            <td style="border:1px solid #ccc;padding:0.4rem 0.5rem;text-align:center;">${i+1}</td>
+            <td style="border:1px solid #ccc;padding:0.4rem 0.8rem;text-align:right;font-weight:500;">${r.subject}</td>
+            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">100</td>
+            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">50</td>
+            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-weight:700;color:${r.score>=50?'#1e5a3a':'#c0392b'};">${r.score}</td>
+            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-size:0.85rem;">${toArabicWords(r.score)}</td>
+            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;color:${r.score>=50?'#1e5a3a':'#c0392b'};">${r.score>=50?'ناجح':'راسب'}</td>
+        </tr>
+    `).join('');
+
+    // Total row
+    document.getElementById('reportTableFoot').innerHTML = `
+        <tr style="background:#1e5a3a;color:white;font-weight:700;">
+            <td style="border:1px solid #999;padding:0.5rem;" colspan="2">المجموع الكلي</td>
+            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">${maxTotal}</td>
+            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">---</td>
+            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">${total}</td>
+            <td style="border:1px solid #999;padding:0.5rem;text-align:center;font-size:0.8rem;">${toArabicWords(total)}</td>
+            <td style="border:1px solid #999;padding:0.5rem;text-align:center;"></td>
+        </tr>`;
+
+    document.getElementById('termCardsSection').style.display = 'none';
+    document.getElementById('reportView').style.display = 'block';
+}
+
+function backToTerms() {
+    document.getElementById('reportView').style.display = 'none';
+    document.getElementById('termCardsSection').style.display = 'block';
+}
+
+function printReport() {
+    const content = document.getElementById('a4Report').innerHTML;
+    const win = window.open('', '_blank');
+    win.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8">
+    <title>كشف الدرجات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body{font-family:Arial,sans-serif;margin:0;padding:20px;direction:rtl;}
+        @media print{body{padding:0;margin:0;} @page{size:A4;margin:1.5cm;}}
+        table{width:100%;border-collapse:collapse;font-size:13px;}
+        th,td{border:1px solid #999;padding:5px 8px;}
+    </style></head><body>${content}<script>window.onload=function(){window.print();}<\/script></body></html>`);
+    win.document.close();
 }
 
 // ===== ADMIN LOGIN =====
@@ -1183,8 +1388,4 @@ async function saveStudent() {
 }
 
 // Enter key support for login forms
-document.getElementById('student-pass-input').addEventListener('keypress', e => { if (e.key === 'Enter') studentLogin(); });
-document.getElementById('admin-pass-input').addEventListener('keypress', e => { if (e.key === 'Enter') adminLogin(); });
-</script>
-</body>
-</html>
+document.getElementBy
