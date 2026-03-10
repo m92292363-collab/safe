@@ -950,7 +950,7 @@
     </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function() {
     'use strict';
 
@@ -1009,11 +1009,9 @@
         { title: {en:'Mission',ar:'مهمتنا'}, category:{en:'Home',ar:'الرئيسية'}, preview:{en:'Our mission',ar:'مهمتنا'}, tab:'tab1', elementId:'mission-section', keywords:['mission','مهمة','قيم','values'] },
         { title: {en:'About',ar:'عن المعهد'}, category:{en:'About',ar:'عن المعهد'}, preview:{en:'Founded 1963',ar:'تأسس 1963'}, tab:'tab2', elementId:'about-section', keywords:['about','1963','عن','تأسس','history'] },
         { title: {en:'Admissions',ar:'القبول'}, category:{en:'Admission',ar:'القبول'}, preview:{en:'Apply now',ar:'قدم الآن'}, tab:'tab3', elementId:'admission-section', keywords:['admission','apply','قبول','تقديم','2026'] },
-        { title: {en:'Programs',ar:'البرامج'}, category:{en:'Admission',ar:'القبول'}, preview:{en:'Quran, Hadith, Arabic',ar:'القرآن، الحديث، اللغة'}, tab:'tab3', elementId:'programs-section', keywords:['programs','quran','hadith','arabic','برامج','قرآن','حديث'] },
         { title: {en:'News',ar:'الأخبار'}, category:{en:'News',ar:'أخبار'}, preview:{en:'Latest news',ar:'آخر الأخبار'}, tab:'tab4', elementId:'news-section', keywords:['news','أخبار','graduation','تخرج'] },
         { title: {en:'Student Portal',ar:'بوابة الطالب'}, category:{en:'Login',ar:'دخول'}, preview:{en:'Student login',ar:'تسجيل دخول الطالب'}, tab:'tab5', elementId:'student-login', keywords:['student','login','طالب','دخول','نتائج','results'] },
         { title: {en:'Admin Portal',ar:'بوابة الإدارة'}, category:{en:'Login',ar:'دخول'}, preview:{en:'Admin login',ar:'تسجيل دخول الإدارة'}, tab:'tab5', elementId:'teacher-login', keywords:['admin','teacher','إدارة','معلم','login'] },
-        { title: {en:'Contact',ar:'اتصل بنا'}, category:{en:'Footer',ar:'التذييل'}, preview:{en:'+220 9905171',ar:'+220 9905171'}, tab:null, elementId:'footer', keywords:['contact','phone','email','اتصال','هاتف','بريد'] },
     ];
     function scrollToAndHighlight(elementId) {
         const el = document.getElementById(elementId);
@@ -1026,17 +1024,17 @@
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             const q = this.value.trim().toLowerCase();
-            const lang = document.querySelector('.lang-btn.active')?.getAttribute('data-lang') || 'ar';
+            const lang = document.querySelector('.lang-btn.active') ? document.querySelector('.lang-btn.active').getAttribute('data-lang') : 'ar';
             if (q.length < 2) { searchResults.classList.remove('active'); return; }
             const results = searchDb.filter(item => item.keywords.some(k => k.toLowerCase().includes(q))).slice(0, 5);
             if (results.length > 0) {
-                searchResults.innerHTML = results.map(r => `<div class="search-result-item" data-tab="${r.tab||''}" data-element="${r.elementId||''}"><div class="result-category"><i class="fas fa-tag"></i> ${r.category[lang]}</div><div class="result-title">${r.title[lang]}</div><div class="result-preview">${r.preview[lang]}</div></div>`).join('');
+                searchResults.innerHTML = results.map(r => '<div class="search-result-item" data-tab="' + (r.tab||'') + '" data-element="' + (r.elementId||'') + '"><div class="result-category"><i class="fas fa-tag"></i> ' + r.category[lang] + '</div><div class="result-title">' + r.title[lang] + '</div><div class="result-preview">' + r.preview[lang] + '</div></div>').join('');
                 searchResults.classList.add('active');
                 document.querySelectorAll('.search-result-item').forEach(item => {
                     item.addEventListener('click', function() {
                         const tabId = this.dataset.tab;
                         if (tabId && tabId !== 'null') {
-                            const tabItem = document.querySelector(`.tab-item[data-tab="${tabId}"]`);
+                            const tabItem = document.querySelector('.tab-item[data-tab="' + tabId + '"]');
                             if (tabItem) { tabItem.click(); setTimeout(() => scrollToAndHighlight(this.dataset.element), 100); }
                         } else scrollToAndHighlight(this.dataset.element);
                         searchInput.value = '';
@@ -1044,7 +1042,7 @@
                     });
                 });
             } else {
-                searchResults.innerHTML = `<div class="no-results"><i class="fas fa-search"></i> ${lang==='en'?'No results found':'لا توجد نتائج'}</div>`;
+                searchResults.innerHTML = '<div class="no-results"><i class="fas fa-search"></i> ' + (lang==='en'?'No results found':'لا توجد نتائج') + '</div>';
                 searchResults.classList.add('active');
             }
         });
@@ -1060,38 +1058,24 @@ async function studentLogin() {
     const password = document.getElementById('student-pass-input').value.trim();
     const btn = document.getElementById('studentLoginBtn');
     const errorEl = document.getElementById('student-login-error');
-
     errorEl.classList.remove('show');
     if (!studentId || !password) { errorEl.textContent = 'يرجى إدخال رقم الطالب وكلمة المرور'; errorEl.classList.add('show'); return; }
-
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
-
     try {
-        const res = await fetch('/api/student-login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ studentId, password })
-        });
+        const res = await fetch('/api/student-login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentId, password }) });
         const data = await res.json();
-        if (data.success) {
-            showStudentDashboard(data.student);
-        } else {
-            errorEl.textContent = data.error || 'بيانات غير صحيحة';
-            errorEl.classList.add('show');
-        }
-    } catch (err) {
-        errorEl.textContent = 'خطأ في الاتصال. حاول مرة أخرى.';
-        errorEl.classList.add('show');
-    }
+        if (data.success) { showStudentDashboard(data.student); }
+        else { errorEl.textContent = data.error || 'بيانات غير صحيحة'; errorEl.classList.add('show'); }
+    } catch (err) { errorEl.textContent = 'خطأ في الاتصال. حاول مرة أخرى.'; errorEl.classList.add('show'); }
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
 }
 
+// ===== STUDENT DASHBOARD =====
 let currentStudentData = null;
 let allStudentResults = [];
 
-// Number to Arabic words
 function toArabicWords(n) {
     const ones = ['','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة','عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
     const tens = ['','','عشرون','ثلاثون','أربعون','خمسون','ستون','سبعون','ثمانون','تسعون'];
@@ -1107,112 +1091,90 @@ function toArabicWords(n) {
 async function showStudentDashboard(student) {
     currentStudentData = student;
     document.getElementById('dashStudentName').textContent = student.fullName;
-    document.getElementById('dashStudentNameBig').textContent = `مرحباً، ${student.fullName}`;
-    document.getElementById('dashStudentId').textContent = `رقم الطالب: ${student.studentId}`;
-    document.getElementById('dashStudentGrade').textContent = `المستوى: ${student.gradeLevel || '---'}`;
+    document.getElementById('dashStudentNameBig').textContent = 'مرحباً، ' + student.fullName;
+    document.getElementById('dashStudentId').textContent = 'رقم الطالب: ' + student.studentId;
+    document.getElementById('dashStudentGrade').textContent = 'المستوى: ' + (student.gradeLevel || '---');
     document.getElementById('studentDashboard').classList.add('active');
     document.body.style.overflow = 'hidden';
-
-    // Load all results
     try {
-        const res = await fetch(`/api/get-results?studentId=${student.studentId}`);
+        const res = await fetch('/api/get-results?studentId=' + student.studentId);
         const data = await res.json();
         allStudentResults = data.success ? data.results : [];
-        renderTermCards();
-    } catch (err) {
-        allStudentResults = [];
-        renderTermCards();
-    }
+    } catch (err) { allStudentResults = []; }
+    renderTermCards();
 }
 
 function renderTermCards() {
-    const grid = document.getElementById('termCardsGrid');
-
-    // Get unique years
-    const years = [...new Set(allStudentResults.map(r => r.academic_year))];
-    const terms = ['Term 1', 'Term 2'];
-    const termNames = { 'Term 1': 'الفصل الأول', 'Term 2': 'الفصل الثاني' };
-    const termIcons = { 'Term 1': 'fa-sun', 'Term 2': 'fa-moon' };
+    var grid = document.getElementById('termCardsGrid');
+    var years = [];
+    allStudentResults.forEach(function(r) { if (years.indexOf(r.academic_year) === -1) years.push(r.academic_year); });
 
     if (allStudentResults.length === 0) {
-        grid.innerHTML = `<div style="grid-column:span 2;text-align:center;padding:3rem;color:#888;"><i class="fas fa-inbox" style="font-size:3rem;color:var(--primary-accent);display:block;margin-bottom:1rem;"></i><p>لا توجد نتائج متاحة حتى الآن.</p></div>`;
+        grid.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:3rem;color:#888;"><i class="fas fa-inbox" style="font-size:3rem;color:#FFB347;display:block;margin-bottom:1rem;"></i><p>لا توجد نتائج متاحة حتى الآن.</p></div>';
         return;
     }
 
-    const year = years[0]; // use first year
-    grid.innerHTML = terms.map(term => {
-        const count = allStudentResults.filter(r => r.term === term && r.academic_year === year).length;
-        const total = allStudentResults.filter(r => r.term === term && r.academic_year === year).reduce((s, r) => s + r.score, 0);
-        const hasData = count > 0;
-        return `
-        <div onclick="${hasData ? `showTermReport('${term}','${year}')` : ''}"
-             style="background:${hasData ? 'linear-gradient(135deg,#1e5a3a,#2b7a4f)' : '#e0e0e0'};
-                    color:${hasData ? 'white' : '#999'};
-                    border-radius:1.2rem;padding:2rem 1.5rem;text-align:center;
-                    cursor:${hasData ? 'pointer' : 'default'};
-                    transition:all 0.3s;box-shadow:${hasData ? '0 8px 20px rgba(30,90,58,0.3)' : 'none'};
-                    border:${hasData ? '2px solid rgba(255,179,71,0.4)' : '2px dashed #ccc'};"
-             onmouseover="${hasData ? "this.style.transform='translateY(-5px)'" : ''}"
-             onmouseout="${hasData ? "this.style.transform='translateY(0)'" : ''}">
-            <i class="fas ${termIcons[term]}" style="font-size:2.5rem;color:${hasData ? 'var(--primary-accent)' : '#bbb'};margin-bottom:1rem;display:block;"></i>
-            <div style="font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">${termNames[term]}</div>
-            <div style="font-size:0.9rem;opacity:0.85;margin-bottom:0.5rem;">${year}</div>
-            ${hasData
-                ? `<div style="background:rgba(255,255,255,0.15);border-radius:30px;padding:0.3rem 1rem;margin-top:0.8rem;font-size:0.9rem;"><i class="fas fa-check-circle" style="color:var(--primary-accent);margin-left:0.3rem;"></i>${count} مادة · مجموع ${total}</div>`
-                : `<div style="font-size:0.85rem;margin-top:0.8rem;">لا توجد نتائج</div>`}
-            ${hasData ? `<div style="margin-top:1rem;font-size:0.85rem;opacity:0.8;"><i class="fas fa-eye" style="margin-left:0.3rem;"></i>انقر لعرض كشف الدرجات</div>` : ''}
-        </div>`;
-    }).join('');
+    var year = years[0];
+    var termList = [['Term 1','الفصل الأول','fa-sun'],['Term 2','الفصل الثاني','fa-moon']];
+    var html = '';
+    termList.forEach(function(t) {
+        var term = t[0]; var termName = t[1]; var icon = t[2];
+        var filtered = allStudentResults.filter(function(r) { return r.term === term && r.academic_year === year; });
+        var count = filtered.length;
+        var total = filtered.reduce(function(s,r) { return s + r.score; }, 0);
+        var hasData = count > 0;
+        html += '<div';
+        if (hasData) html += " onclick='showTermReport(\"" + term + "\",\"" + year + "\")' onmouseover=\"this.style.transform='translateY(-5px)'\" onmouseout=\"this.style.transform='translateY(0)'\"";
+        html += ' style="background:' + (hasData ? 'linear-gradient(135deg,#1e5a3a,#2b7a4f)' : '#e0e0e0') + ';';
+        html += 'color:' + (hasData ? 'white' : '#999') + ';border-radius:1.2rem;padding:2rem 1.5rem;text-align:center;';
+        html += 'cursor:' + (hasData ? 'pointer' : 'default') + ';transition:all 0.3s;';
+        html += 'box-shadow:' + (hasData ? '0 8px 20px rgba(30,90,58,0.3)' : 'none') + ';';
+        html += 'border:' + (hasData ? '2px solid rgba(255,179,71,0.4)' : '2px dashed #ccc') + ';">';
+        html += '<i class="fas ' + icon + '" style="font-size:2.5rem;color:' + (hasData?'#FFB347':'#bbb') + ';margin-bottom:1rem;display:block;"></i>';
+        html += '<div style="font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;">' + termName + '</div>';
+        html += '<div style="font-size:0.9rem;opacity:0.85;margin-bottom:0.5rem;">' + year + '</div>';
+        if (hasData) {
+            html += '<div style="background:rgba(255,255,255,0.15);border-radius:30px;padding:0.3rem 1rem;margin-top:0.8rem;font-size:0.9rem;">' + count + ' مادة · مجموع ' + total + '</div>';
+            html += '<div style="margin-top:1rem;font-size:0.85rem;opacity:0.8;"><i class="fas fa-eye" style="margin-left:0.3rem;"></i>انقر لعرض كشف الدرجات</div>';
+        } else {
+            html += '<div style="font-size:0.85rem;margin-top:0.8rem;">لا توجد نتائج</div>';
+        }
+        html += '</div>';
+    });
+    grid.innerHTML = html;
 }
 
 function showTermReport(term, year) {
-    const results = allStudentResults.filter(r => r.term === term && r.academic_year === year);
-    const termNames = { 'Term 1': 'الفصل الأول', 'Term 2': 'الفصل الثاني' };
-    const student = currentStudentData;
-
-    // Set header info
-    const today = new Date();
-    document.getElementById('reportDate').textContent = `التاريخ: ${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
-
-    // Attestation
-    document.getElementById('attestationText').innerHTML =
-        `تشهد إدارة المعهد الإسلامي ببتلند كنجا بأن الطالب: <strong>${student.fullName}</strong> قد نجح في امتحان الدور الأول
-        للعام الدراسي ${year} وبناء عليه استحق نيل هذه الوثيقة.
-        عدد طلاب الفصل: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
-        الفصل: ${termNames[term]}`;
-
-    // Stats
-    const total = results.reduce((s, r) => s + r.score, 0);
-    const maxTotal = results.length * 100;
-    document.getElementById('reportPassCount').textContent = `عدد الناجحين: ---`;
-    document.getElementById('reportRank').textContent = `الترتيب: ---`;
-    document.getElementById('reportGrade').textContent = `التقدير: ${total >= maxTotal*0.9 ? 'ممتاز' : total >= maxTotal*0.75 ? 'جيد جداً' : total >= maxTotal*0.6 ? 'جيد' : 'مقبول'}`;
-
-    // Table body
-    const tbody = document.getElementById('reportTableBody');
-    tbody.innerHTML = results.map((r, i) => `
-        <tr style="${i%2===0 ? 'background:#fafafa;' : 'background:white;'}">
-            <td style="border:1px solid #ccc;padding:0.4rem 0.5rem;text-align:center;">${i+1}</td>
-            <td style="border:1px solid #ccc;padding:0.4rem 0.8rem;text-align:right;font-weight:500;">${r.subject}</td>
-            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">100</td>
-            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">50</td>
-            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-weight:700;color:${r.score>=50?'#1e5a3a':'#c0392b'};">${r.score}</td>
-            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-size:0.85rem;">${toArabicWords(r.score)}</td>
-            <td style="border:1px solid #ccc;padding:0.4rem;text-align:center;color:${r.score>=50?'#1e5a3a':'#c0392b'};">${r.score>=50?'ناجح':'راسب'}</td>
-        </tr>
-    `).join('');
-
-    // Total row
-    document.getElementById('reportTableFoot').innerHTML = `
-        <tr style="background:#1e5a3a;color:white;font-weight:700;">
-            <td style="border:1px solid #999;padding:0.5rem;" colspan="2">المجموع الكلي</td>
-            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">${maxTotal}</td>
-            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">---</td>
-            <td style="border:1px solid #999;padding:0.5rem;text-align:center;">${total}</td>
-            <td style="border:1px solid #999;padding:0.5rem;text-align:center;font-size:0.8rem;">${toArabicWords(total)}</td>
-            <td style="border:1px solid #999;padding:0.5rem;text-align:center;"></td>
-        </tr>`;
-
+    var results = allStudentResults.filter(function(r) { return r.term === term && r.academic_year === year; });
+    var termName = term === 'Term 1' ? 'الفصل الأول' : 'الفصل الثاني';
+    var student = currentStudentData;
+    var today = new Date();
+    document.getElementById('reportDate').textContent = 'التاريخ: ' + today.getDate() + '/' + (today.getMonth()+1) + '/' + today.getFullYear();
+    document.getElementById('attestationText').innerHTML = 'تشهد إدارة المعهد الإسلامي ببتلند كنجا بأن الطالب: <strong>' + student.fullName + '</strong> قد نجح في امتحان الدور الأول للعام الدراسي ' + year + ' وبناء عليه استحق نيل هذه الوثيقة. &nbsp;&nbsp; الفصل: ' + termName;
+    var total = results.reduce(function(s,r) { return s + r.score; }, 0);
+    var maxTotal = results.length * 100;
+    var grade = total >= maxTotal*0.9 ? 'ممتاز' : total >= maxTotal*0.75 ? 'جيد جداً' : total >= maxTotal*0.6 ? 'جيد' : 'مقبول';
+    document.getElementById('reportPassCount').textContent = 'عدد الناجحين: ---';
+    document.getElementById('reportRank').textContent = 'الترتيب: ---';
+    document.getElementById('reportGrade').textContent = 'التقدير: ' + grade;
+    var tbody = document.getElementById('reportTableBody');
+    var rows = '';
+    results.forEach(function(r, i) {
+        var bg = i%2===0 ? '#fafafa' : 'white';
+        var scoreColor = r.score >= 50 ? '#1e5a3a' : '#c0392b';
+        var note = r.score >= 50 ? 'ناجح' : 'راسب';
+        rows += '<tr style="background:' + bg + ';">';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">' + (i+1) + '</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem 0.8rem;text-align:right;font-weight:500;">' + r.subject + '</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">100</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;">50</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-weight:700;color:' + scoreColor + ';">' + r.score + '</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;font-size:0.85rem;">' + toArabicWords(r.score) + '</td>';
+        rows += '<td style="border:1px solid #ccc;padding:0.4rem;text-align:center;color:' + scoreColor + ';">' + note + '</td>';
+        rows += '</tr>';
+    });
+    tbody.innerHTML = rows;
+    document.getElementById('reportTableFoot').innerHTML = '<tr style="background:#1e5a3a;color:white;font-weight:700;"><td style="border:1px solid #999;padding:0.5rem;" colspan="2">المجموع الكلي</td><td style="border:1px solid #999;padding:0.5rem;text-align:center;">' + maxTotal + '</td><td style="border:1px solid #999;padding:0.5rem;text-align:center;">---</td><td style="border:1px solid #999;padding:0.5rem;text-align:center;">' + total + '</td><td style="border:1px solid #999;padding:0.5rem;text-align:center;font-size:0.8rem;">' + toArabicWords(total) + '</td><td style="border:1px solid #999;padding:0.5rem;"></td></tr>';
     document.getElementById('termCardsSection').style.display = 'none';
     document.getElementById('reportView').style.display = 'block';
 }
@@ -1223,17 +1185,9 @@ function backToTerms() {
 }
 
 function printReport() {
-    const content = document.getElementById('a4Report').innerHTML;
-    const win = window.open('', '_blank');
-    win.document.write(`<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8">
-    <title>كشف الدرجات</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body{font-family:Arial,sans-serif;margin:0;padding:20px;direction:rtl;}
-        @media print{body{padding:0;margin:0;} @page{size:A4;margin:1.5cm;}}
-        table{width:100%;border-collapse:collapse;font-size:13px;}
-        th,td{border:1px solid #999;padding:5px 8px;}
-    </style></head><body>${content}<script>window.onload=function(){window.print();}<\/script></body></html>`);
+    var content = document.getElementById('a4Report').innerHTML;
+    var win = window.open('', '_blank');
+    win.document.write('<!DOCTYPE html><html dir="rtl"><head><meta charset="UTF-8"><title>كشف الدرجات</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"><style>body{font-family:Arial,sans-serif;margin:0;padding:20px;direction:rtl;}@media print{body{padding:0;margin:0;}@page{size:A4;margin:1.5cm;}}table{width:100%;border-collapse:collapse;font-size:13px;}th,td{border:1px solid #999;padding:5px 8px;}</style></head><body>' + content + '<script>window.onload=function(){window.print();}<\/script></body></html>');
     win.document.close();
 }
 
@@ -1243,31 +1197,16 @@ async function adminLogin() {
     const password = document.getElementById('admin-pass-input').value.trim();
     const btn = document.getElementById('adminLoginBtn');
     const errorEl = document.getElementById('admin-login-error');
-
     errorEl.classList.remove('show');
     if (!username || !password) { errorEl.textContent = 'يرجى إدخال اسم المستخدم وكلمة المرور'; errorEl.classList.add('show'); return; }
-
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحقق...';
-
     try {
-        const res = await fetch('/api/admin-login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
+        const res = await fetch('/api/admin-login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
         const data = await res.json();
-        if (data.success) {
-            document.getElementById('adminDashboard').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        } else {
-            errorEl.textContent = data.error || 'بيانات غير صحيحة';
-            errorEl.classList.add('show');
-        }
-    } catch (err) {
-        errorEl.textContent = 'خطأ في الاتصال. حاول مرة أخرى.';
-        errorEl.classList.add('show');
-    }
+        if (data.success) { document.getElementById('adminDashboard').classList.add('active'); document.body.style.overflow = 'hidden'; }
+        else { errorEl.textContent = data.error || 'بيانات غير صحيحة'; errorEl.classList.add('show'); }
+    } catch (err) { errorEl.textContent = 'خطأ في الاتصال. حاول مرة أخرى.'; errorEl.classList.add('show'); }
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
 }
@@ -1276,13 +1215,8 @@ async function adminLogin() {
 function logout(type) {
     document.getElementById(type === 'student' ? 'studentDashboard' : 'adminDashboard').classList.remove('active');
     document.body.style.overflow = '';
-    if (type === 'student') {
-        document.getElementById('student-id-input').value = '';
-        document.getElementById('student-pass-input').value = '';
-    } else {
-        document.getElementById('admin-user-input').value = '';
-        document.getElementById('admin-pass-input').value = '';
-    }
+    if (type === 'student') { document.getElementById('student-id-input').value = ''; document.getElementById('student-pass-input').value = ''; }
+    else { document.getElementById('admin-user-input').value = ''; document.getElementById('admin-pass-input').value = ''; }
 }
 
 // ===== ADMIN TABS =====
@@ -1290,7 +1224,7 @@ function switchAdminTab(tab) {
     document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
     event.target.closest('.admin-tab').classList.add('active');
-    document.getElementById(`panel-${tab}`).classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
 }
 
 // ===== SAVE MARKS =====
@@ -1304,41 +1238,16 @@ async function saveMarks() {
     const btn = document.getElementById('saveMarksBtn');
     const successEl = document.getElementById('marks-success');
     const errorEl = document.getElementById('marks-error');
-
-    successEl.classList.remove('show');
-    errorEl.classList.remove('show');
-
-    if (!studentId || !subject || !score || !grade || !academicYear || !term) {
-        errorEl.textContent = 'يرجى ملء جميع الحقول المطلوبة';
-        errorEl.classList.add('show'); return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
-
+    successEl.classList.remove('show'); errorEl.classList.remove('show');
+    if (!studentId || !subject || !score || !grade || !academicYear || !term) { errorEl.textContent = 'يرجى ملء جميع الحقول المطلوبة'; errorEl.classList.add('show'); return; }
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
     try {
-        const res = await fetch('/api/add-marks', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ studentId, subject, score, grade, academicYear, term })
-        });
+        const res = await fetch('/api/add-marks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentId, subject, score, grade, academicYear, term }) });
         const data = await res.json();
-        if (data.success) {
-            successEl.classList.add('show');
-            document.getElementById('marks-studentId').value = '';
-            document.getElementById('marks-subject').value = '';
-            document.getElementById('marks-score').value = '';
-            document.getElementById('marks-grade').value = '';
-        } else {
-            errorEl.textContent = data.error || 'حدث خطأ';
-            errorEl.classList.add('show');
-        }
-    } catch (err) {
-        errorEl.textContent = 'خطأ في الاتصال';
-        errorEl.classList.add('show');
-    }
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-save"></i> حفظ النتيجة';
+        if (data.success) { successEl.classList.add('show'); document.getElementById('marks-studentId').value = ''; document.getElementById('marks-subject').value = ''; document.getElementById('marks-score').value = ''; document.getElementById('marks-grade').value = ''; }
+        else { errorEl.textContent = data.error || 'حدث خطأ'; errorEl.classList.add('show'); }
+    } catch (err) { errorEl.textContent = 'خطأ في الاتصال'; errorEl.classList.add('show'); }
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-save"></i> حفظ النتيجة';
 }
 
 // ===== SAVE STUDENT =====
@@ -1350,42 +1259,21 @@ async function saveStudent() {
     const btn = document.getElementById('saveStudentBtn');
     const successEl = document.getElementById('student-success');
     const errorEl = document.getElementById('student-error');
-
-    successEl.classList.remove('show');
-    errorEl.classList.remove('show');
-
-    if (!studentId || !fullName || !password) {
-        errorEl.textContent = 'يرجى ملء جميع الحقول المطلوبة';
-        errorEl.classList.add('show'); return;
-    }
-
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
-
+    successEl.classList.remove('show'); errorEl.classList.remove('show');
+    if (!studentId || !fullName || !password) { errorEl.textContent = 'يرجى ملء جميع الحقول المطلوبة'; errorEl.classList.add('show'); return; }
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإضافة...';
     try {
-        const res = await fetch('/api/add-student', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ studentId, fullName, password, gradeLevel: parseInt(gradeLevel) })
-        });
+        const res = await fetch('/api/add-student', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ studentId, fullName, password, gradeLevel: parseInt(gradeLevel) }) });
         const data = await res.json();
-        if (data.success) {
-            successEl.textContent = `✅ تم إضافة الطالب ${fullName} بنجاح!`;
-            successEl.classList.add('show');
-            document.getElementById('new-studentId').value = '';
-            document.getElementById('new-fullName').value = '';
-            document.getElementById('new-password').value = '';
-        } else {
-            errorEl.textContent = data.error || 'حدث خطأ';
-            errorEl.classList.add('show');
-        }
-    } catch (err) {
-        errorEl.textContent = 'خطأ في الاتصال';
-        errorEl.classList.add('show');
-    }
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fas fa-user-plus"></i> إضافة الطالب';
+        if (data.success) { successEl.textContent = 'تم إضافة الطالب ' + fullName + ' بنجاح!'; successEl.classList.add('show'); document.getElementById('new-studentId').value = ''; document.getElementById('new-fullName').value = ''; document.getElementById('new-password').value = ''; }
+        else { errorEl.textContent = data.error || 'حدث خطأ'; errorEl.classList.add('show'); }
+    } catch (err) { errorEl.textContent = 'خطأ في الاتصال'; errorEl.classList.add('show'); }
+    btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> إضافة الطالب';
 }
 
-// Enter key support for login forms
-document.getElementBy
+// Enter key support
+document.getElementById('student-pass-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') studentLogin(); });
+document.getElementById('admin-pass-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') adminLogin(); });
+</script>
+</body>
+</html>
